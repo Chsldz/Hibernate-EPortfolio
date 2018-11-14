@@ -7,7 +7,7 @@
    <class name = "Auto" table = "auto">
       
       <meta attribute = "class-description">
-         This class contains the employee detail. 
+         This class show the car detail, and mapping for the DB 
       </meta>
       
       <id name = "id" type = "int" column = "id">
@@ -17,6 +17,7 @@
       <property name = "marke" column = "marke" type = "string"/>
       <property name = "model" column = "model" type = "string"/>
       <property name = "leistung" column = "leistung" type = "int"/>
+      <property name = "farbe" column = "farbe" type = "string"/>
       
    </class>
 </hibernate-mapping>

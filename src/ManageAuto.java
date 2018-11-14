@@ -15,36 +15,36 @@ public class ManageAuto {
 		cfg.configure("hibernate.cfg.xml");
 		factory = cfg.buildSessionFactory();
 
-		ManageAuto ME = new ManageAuto();
+		ManageAuto MA = new ManageAuto();
 
-		/* Add few employee records in database */
-		Integer empID1 = ME.addEmployee("Zara", "Ali", 1000);
-		Integer empID2 = ME.addEmployee("Daisy", "Das", 5000);
-		Integer empID3 = ME.addEmployee("John", "Paul", 10000);
+		// Hinzufügen einiger Autos
+		Integer autoID1 = MA.addAuto("Fiat", "Punto", 50, "grün");
+		Integer autoID2 = MA.addAuto("VW", "T6", 110, "weiß/rot");
+		Integer autoID3 = MA.addAuto("Audi", "Q8", 300, "gelb");
 
-		/* List down all the employees */
-		ME.listEmployees();
+		// Alle Autos auslesen
+		MA.listAutos();
 
-		/* Update employee's records */
-		ME.updateEmployee(empID1, 5000);
+		// Updaten eines Autos
+		MA.updateAuto(autoID3, 500);
 
-		/* Delete an employee from the database */
-		ME.deleteEmployee(empID2);
+		// Löschen eines Autos
+		MA.deleteAuto(autoID1);
 
-		/* List down new list of the employees */
-		ME.listEmployees();
+		// Alle Autos auslesen
+		MA.listAutos();
 	}
 
-	/* Method to CREATE an employee in the database */
-	public Integer addEmployee(String fname, String lname, int salary) {
+	// Methode um ein Auto in der DB zu erstellen
+	public Integer addAuto(String marke, String model, int leistung, String farbe) {
 		Session session = factory.openSession();
 		Transaction tx = null;
-		Integer employeeID = null;
+		Integer autoID = null;
 
 		try {
 			tx = session.beginTransaction();
-			Auto employee = new Auto(fname, lname, salary);
-			employeeID = (Integer) session.save(employee);
+			Auto auto = new Auto(marke, model, leistung, farbe);
+			autoID = (Integer) session.save(auto);
 			tx.commit();
 		} catch (HibernateException e) {
 			if (tx != null)
@@ -53,22 +53,23 @@ public class ManageAuto {
 		} finally {
 			session.close();
 		}
-		return employeeID;
+		return autoID;
 	}
 
-	/* Method to READ all the employees */
-	public void listEmployees() {
+	// Methode um alle Autos in der DB zu lesen
+	public void listAutos() {
 		Session session = factory.openSession();
 		Transaction tx = null;
 
 		try {
 			tx = session.beginTransaction();
-			List employees = session.createQuery("FROM Employee").list();
-			for (Iterator iterator = employees.iterator(); iterator.hasNext();) {
-				Auto employee = (Auto) iterator.next();
-				System.out.print("First Name: " + employee.getMarke());
-				System.out.print("  Last Name: " + employee.getModel());
-				System.out.println("  Salary: " + employee.getLeistung());
+			List autos = session.createQuery("FROM Auto").list();
+			for (Iterator iterator = autos.iterator(); iterator.hasNext();) {
+				Auto auto = (Auto) iterator.next();
+				System.out.print("Marke: " + auto.getMarke());
+				System.out.print("  Model: " + auto.getModel());
+				System.out.println("  Leistung: " + auto.getLeistung());
+				System.out.println("  Farbe: " + auto.getFarbe());
 			}
 			tx.commit();
 		} catch (HibernateException e) {
@@ -80,16 +81,16 @@ public class ManageAuto {
 		}
 	}
 
-	/* Method to UPDATE salary for an employee */
-	public void updateEmployee(Integer EmployeeID, int salary) {
+	// Methode um die Leistung am Auto zu aktualisieren
+	public void updateAuto(Integer AutoID, int leistung) {
 		Session session = factory.openSession();
 		Transaction tx = null;
 
 		try {
 			tx = session.beginTransaction();
-			Auto employee = (Auto) session.get(Auto.class, EmployeeID);
-			employee.setLeistung(salary);
-			session.update(employee);
+			Auto auto = (Auto) session.get(Auto.class, AutoID);
+			auto.setLeistung(leistung);
+			session.update(auto);
 			tx.commit();
 		} catch (HibernateException e) {
 			if (tx != null)
@@ -100,15 +101,15 @@ public class ManageAuto {
 		}
 	}
 
-	/* Method to DELETE an employee from the records */
-	public void deleteEmployee(Integer EmployeeID) {
+	// Methode um Autos von der DB zu löschen
+	public void deleteAuto(Integer autoID) {
 		Session session = factory.openSession();
 		Transaction tx = null;
 
 		try {
 			tx = session.beginTransaction();
-			Auto employee = (Auto) session.get(Auto.class, EmployeeID);
-			session.delete(employee);
+			Auto auto = (Auto) session.get(Auto.class, autoID);
+			session.delete(auto);
 			tx.commit();
 		} catch (HibernateException e) {
 			if (tx != null)

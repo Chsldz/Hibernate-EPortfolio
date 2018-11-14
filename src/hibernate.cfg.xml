@@ -6,9 +6,9 @@
 	<session-factory>
 	
 	<!-- connection to the database -->
-	<property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
-	<property name="hibernate.connection.url">jdbc:mysql://localhost:3306/test</property>
 	<property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+	<property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+	<property name="hibernate.connection.url">jdbc:mysql://localhost:3306/autoschema?useSSL=false&amp;useJDBCCompliantTimezoneShift=true&amp;useLegacyDatetimeCode=false&amp;serverTimezone=UTC</property>
 	<property name="hibernate.connection.username">root</property>
 	<property name="hibernate.connection.password">rootpwpw</property>
 	
@@ -22,10 +22,6 @@
 	
 	<!-- for jdbc transaction -->
 	<property name="hibernate.transaction.factory_class">org.hibernate.transaction.JDBCTransactionFactory</property>
-	
-	<!-- creating table -->
-	<!-- <property name="hbm2ddl.auto">create</property>  -->
-	<!-- <property name="hbm2ddl.auto">update</property> -->
 	
 	<!-- mapping file -->
 	<mapping resource="Auto.hbm.xml"/>

@@ -1,5 +1,4 @@
 
-
 public class Auto {
 	private int id;
 	private String marke;
@@ -10,13 +9,12 @@ public class Auto {
 	public Auto() {
 	}
 
-	public Auto(String marke, String model, int leistung) {
+	public Auto(String marke, String model, int leistung, String farbe) {
 		super();
-		// this.id = id;
 		this.marke = marke;
 		this.model = model;
 		this.leistung = leistung;
-		// this.farbe = farbe;
+		this.farbe = farbe;
 	}
 
 	public int getId() {
