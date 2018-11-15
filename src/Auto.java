@@ -1,4 +1,7 @@
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
+@Entity
 public class Auto {
 	private int id;
 	private String marke;
@@ -17,6 +20,7 @@ public class Auto {
 		this.farbe = farbe;
 	}
 
+	@Id
 	public int getId() {
 		return id;
 	}
